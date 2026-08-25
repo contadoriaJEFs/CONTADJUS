@@ -1357,6 +1357,93 @@
 }
 
 /* ================================================================
+   GUIA 4 — RELATÓRIO PROFISSIONAL DAS DIFERENÇAS
+   Mesma identidade visual das evoluções previdenciárias.
+   ================================================================ */
+.relatorio-documento .secao-diferencas-relatorio { margin-top:18px; }
+.relatorio-documento .quadro-resumo-diferencas { margin-bottom:9px; }
+.relatorio-documento .quadro-resumo-diferencas .valor-menor {
+    font-size:10.5px;
+    line-height:1.25;
+}
+.relatorio-documento .quadro-totais-diferencas {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:0;
+    border:1px solid #cbd5e1;
+    border-radius:3px;
+    overflow:hidden;
+    margin-bottom:10px;
+}
+.relatorio-documento .quadro-totais-diferencas .total {
+    padding:10px 12px;
+    background:#f8fafc;
+    border-right:1px solid #e2e8f0;
+}
+.relatorio-documento .quadro-totais-diferencas .total:last-child { border-right:0; }
+.relatorio-documento .quadro-totais-diferencas span {
+    display:block;
+    color:#64748b;
+    font-size:8px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.25px;
+}
+.relatorio-documento .quadro-totais-diferencas strong {
+    display:block;
+    margin-top:3px;
+    color:#1e293b;
+    font-size:13px;
+    font-weight:800;
+}
+.relatorio-documento .quadro-totais-diferencas .principal {
+    background:#f0fdfa;
+    border-left:3px solid #00a8b5;
+}
+.relatorio-documento .quadro-totais-diferencas .principal strong { color:#002b66; font-size:15px; }
+.relatorio-documento .tabela-diferencas-relatorio-wrap { width:100%; overflow-x:auto; }
+.relatorio-documento table.tabela-diferencas-relatorio {
+    width:100%;
+    table-layout:auto;
+    border-collapse:collapse;
+    font-size:8.5px;
+    margin:0 0 7px;
+}
+.relatorio-documento table.tabela-diferencas-relatorio th {
+    background:#002b66;
+    color:#fff;
+    border:1px solid #002b66;
+    padding:6px 5px;
+    font-size:7.5px;
+    line-height:1.1;
+    text-transform:uppercase;
+    text-align:left;
+    white-space:nowrap;
+}
+.relatorio-documento table.tabela-diferencas-relatorio td {
+    border:1px solid #cbd5e1;
+    padding:5px 5px;
+    color:#1e293b;
+    line-height:1.15;
+    vertical-align:middle;
+}
+.relatorio-documento table.tabela-diferencas-relatorio th.num,
+.relatorio-documento table.tabela-diferencas-relatorio td.num { text-align:right; }
+.relatorio-documento table.tabela-diferencas-relatorio tbody tr:nth-child(even) td { background:#f1f5f9; }
+.relatorio-documento table.tabela-diferencas-relatorio td.destaque-diferenca {
+    font-weight:800;
+    color:#002b66;
+}
+.relatorio-documento .rodape-diferencas-relatorio {
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:3px;
+    color:#64748b;
+    font-size:8px;
+}
+
+/* ================================================================
    GUIA 3 — RELATÓRIO PROFISSIONAL DO BENEFÍCIO RECEBIDO
    Mesma identidade visual do relatório da Guia 2.
    ================================================================ */
@@ -1432,4 +1519,51 @@
   #relatorioImpressaoPortal .beneficio-status-relatorio .rotulo { font-size:6.5pt !important; }
   #relatorioImpressaoPortal .beneficio-identificacao-relatorio strong,
   #relatorioImpressaoPortal .beneficio-status-relatorio strong { font-size:8.2pt !important; }
+}
+
+
+@media print {
+  #relatorioImpressaoPortal .secao-diferencas-relatorio.continua-em-pagina {
+      break-before:page !important;
+      page-break-before:always !important;
+  }
+  #relatorioImpressaoPortal .quadro-totais-diferencas {
+      display:grid !important;
+      grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+      margin:0 0 3mm !important;
+  }
+  #relatorioImpressaoPortal .quadro-totais-diferencas .total {
+      padding:2.3mm 2.8mm !important;
+  }
+  #relatorioImpressaoPortal .quadro-totais-diferencas span { font-size:6.5pt !important; }
+  #relatorioImpressaoPortal .quadro-totais-diferencas strong { font-size:9.2pt !important; }
+  #relatorioImpressaoPortal .quadro-totais-diferencas .principal strong { font-size:10.5pt !important; }
+  #relatorioImpressaoPortal table.tabela-diferencas-relatorio {
+      width:100% !important;
+      table-layout:auto !important;
+      font-size:6.8pt !important;
+      margin-bottom:2mm !important;
+  }
+  #relatorioImpressaoPortal table.tabela-diferencas-relatorio th {
+      background:#002b66 !important;
+      color:#fff !important;
+      border-color:#002b66 !important;
+      padding:1.8mm 1.2mm !important;
+      font-size:6pt !important;
+      line-height:1.05 !important;
+      white-space:normal !important;
+      -webkit-print-color-adjust:exact !important;
+      print-color-adjust:exact !important;
+  }
+  #relatorioImpressaoPortal table.tabela-diferencas-relatorio td {
+      padding:1.8mm 1.2mm !important;
+      font-size:6.6pt !important;
+      line-height:1.1 !important;
+  }
+  #relatorioImpressaoPortal table.tabela-diferencas-relatorio tbody tr:nth-child(even) td {
+      background:#f1f5f9 !important;
+      -webkit-print-color-adjust:exact !important;
+      print-color-adjust:exact !important;
+  }
+  #relatorioImpressaoPortal .rodape-diferencas-relatorio { font-size:6.8pt !important; }
 }

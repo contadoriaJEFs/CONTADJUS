@@ -1,6 +1,6 @@
 # CONTADJUS — PADRÃO OFICIAL DE DESIGN
 
-**Versão:** 1.0 — B82  
+**Versão:** 1.1 — B83  
 **Data:** 25/08/2026  
 **Status:** documento permanente do projeto
 
@@ -53,7 +53,21 @@ Memória oficial: **MEMÓRIA DA EVOLUÇÃO DO BENEFÍCIO RECEBIDO**.
 
 Os dados próprios da Guia 3 podem variar, mas não a identidade visual.
 
-## 6. PDF e impressão
+## 6. Guia 4 — Diferenças
+
+A Guia 4 passa a integrar o relatório profissional e deve utilizar a mesma linguagem visual das Guias 2 e 3.
+
+Estrutura obrigatória:
+
+1. título **Resultado das Diferenças**;
+2. quadro de parâmetros (termo inicial, competência final, modo de compensação e quantidade de competências);
+3. quadro de totais (devido, recebido e diferença total);
+4. tabela consolidada das diferenças, preservando as colunas efetivamente exibidas na Guia 4;
+5. nota técnica informando que o relatório reproduz resultados consolidados e não reexecuta os motores.
+
+A tabela deve manter cabeçalho azul institucional `#002b66`, texto branco, bordas discretas, zebra `#f1f5f9` e valores de diferença destacados em azul institucional.
+
+## 7. PDF e impressão
 
 A impressão deve reproduzir o modelo B79 em A4, com:
 
@@ -67,7 +81,7 @@ A impressão deve reproduzir o modelo B79 em A4, com:
 
 A prévia da Guia 8 e o PDF devem representar o mesmo documento, com adaptação apenas às dimensões do papel.
 
-## 7. Separação entre visual e motor
+## 8. Separação entre visual e motor
 
 Alterações de design não devem modificar:
 
@@ -79,7 +93,7 @@ Alterações de design não devem modificar:
 - importação/exportação;
 - regras previdenciárias.
 
-## 8. Nomenclatura
+## 9. Nomenclatura
 
 Não utilizar novamente **MEMÓRIA DE CÁLCULO COMPLETA** para as evoluções previdenciárias.
 
@@ -88,6 +102,6 @@ Usar:
 - Guia 2: **MEMÓRIA DA EVOLUÇÃO DO BENEFÍCIO DEVIDO**
 - Guia 3: **MEMÓRIA DA EVOLUÇÃO DO BENEFÍCIO RECEBIDO**
 
-## 9. Regra para futuras versões
+## 10. Regra para futuras versões
 
 Antes de alterar qualquer relatório, comparar visualmente a saída com a B79. Se uma mudança fizer o relatório parecer pertencer a outro sistema, ela deve ser rejeitada ou revista.

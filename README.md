@@ -1,4 +1,6 @@
-**Versão de trabalho: B82 — padrão visual B79 preservado; Guia 3 integrada ao relatório.**
+## Versão atual: B83
+
+**Versão de trabalho: B83 — Guia 4 integrada ao relatório profissional; histórico consolidado.**
 
 # CONTADJUS — B81
 

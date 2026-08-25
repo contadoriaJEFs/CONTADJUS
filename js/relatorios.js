@@ -531,6 +531,103 @@ function gerarSecaoBeneficiosRecebidosRelatorioProfissional(continuaEmNovaPagina
     return html;
 }
 
+
+function relatorioExtrairCelulaTabela(td) {
+    if (!td) return '';
+    const input = td.querySelector('input, textarea, select');
+    if (input) {
+        if (input.tagName === 'SELECT') {
+            return input.options[input.selectedIndex]?.textContent?.trim() || '';
+        }
+        return String(input.value ?? '').trim();
+    }
+    return String(td.textContent ?? '').replace(/\s+/g, ' ').trim();
+}
+
+function gerarTabelaDiferencasRelatorioProfissional() {
+    const tabela = document.getElementById('tabelaDiferencas');
+    const tbody = document.getElementById('corpoDiferencas');
+    if (!tabela || !tbody) return '';
+
+    const headers = Array.from(tabela.querySelectorAll('thead th'))
+        .map(th => String(th.textContent || '').replace(/\s+/g, ' ').trim());
+    const rows = Array.from(tbody.querySelectorAll('tr'))
+        .filter(tr => tr.querySelectorAll('td').length > 1);
+
+    if (!headers.length || !rows.length) return '';
+
+    const headerHtml = headers.map((h, i) =>
+        `<th class="${i === 0 ? '' : 'num'}">${relatorioEscaparHtml(h)}</th>`
+    ).join('');
+
+    const bodyHtml = rows.map(tr => {
+        const cells = Array.from(tr.querySelectorAll('td'));
+        return `<tr>${cells.map((td, i) => {
+            const valor = relatorioExtrairCelulaTabela(td);
+            const classesOriginais = td.className || '';
+            const destaque = /diferenca-devida|total-recebido/i.test(classesOriginais);
+            return `<td class="${i === 0 ? '' : 'num'}${destaque ? ' destaque-diferenca' : ''}">${relatorioEscaparHtml(valor)}</td>`;
+        }).join('')}</tr>`;
+    }).join('');
+
+    return `<div class="tabela-diferencas-relatorio-wrap">
+        <table class="tabela-diferencas-relatorio">
+            <thead><tr>${headerHtml}</tr></thead>
+            <tbody>${bodyHtml}</tbody>
+        </table>
+    </div>`;
+}
+
+function gerarSecaoDiferencasRelatorioProfissional(continuaEmNovaPagina = false) {
+    const tabela = document.getElementById('tabelaDiferencas');
+    const tbody = document.getElementById('corpoDiferencas');
+    const temLinhas = !!tbody && Array.from(tbody.querySelectorAll('tr')).some(tr => tr.querySelectorAll('td').length > 1);
+
+    const termoInicial = relatorioCampo('termoInicialDiferencas', '-');
+    const competenciaFinal = relatorioCampo('dataFinal', '-');
+    const modo = document.querySelector('input[name="modoCompensacao"]:checked')?.value === 'negativo'
+        ? 'Permitir diferença negativa'
+        : 'Limitar ao valor devido';
+
+    const totalDevido = document.getElementById('totalDevido')?.textContent?.trim() || 'R$ 0,00';
+    const totalRecebido = document.getElementById('totalRecebido')?.textContent?.trim() || 'R$ 0,00';
+    const diferencaTotal = document.getElementById('diferencaTotal')?.textContent?.trim() || 'R$ 0,00';
+    const qtdCompetencias = document.getElementById('qtdCompetencias')?.textContent?.trim() || '0';
+    const qtdEditadas = document.getElementById('qtdEditadas')?.textContent?.trim() || '0';
+
+    if (!temLinhas) {
+        return `<section class="secao-relatorio secao-diferencas-relatorio ${continuaEmNovaPagina ? 'continua-em-pagina' : ''}">
+            <h2>Resultado das Diferenças</h2>
+            <p class="nota-relatorio">Não há diferenças calculadas disponíveis. Calcule as evoluções das Guias 2 e 3 e, em seguida, processe a Guia 4 antes de gerar este relatório.</p>
+        </section>`;
+    }
+
+    return `<section class="secao-relatorio secao-diferencas-relatorio ${continuaEmNovaPagina ? 'continua-em-pagina' : ''}">
+        <h2>Resultado das Diferenças</h2>
+
+        <div class="quadro-resumo quadro-resumo-diferencas">
+            <div class="item"><span class="rotulo">Termo inicial</span><span class="valor">${relatorioEscaparHtml(termoInicial)}</span></div>
+            <div class="item"><span class="rotulo">Competência final</span><span class="valor">${relatorioEscaparHtml(competenciaFinal)}</span></div>
+            <div class="item"><span class="rotulo">Modo de compensação</span><span class="valor valor-menor">${relatorioEscaparHtml(modo)}</span></div>
+            <div class="item"><span class="rotulo">Competências</span><span class="valor">${relatorioEscaparHtml(qtdCompetencias)}</span></div>
+        </div>
+
+        <div class="quadro-totais-diferencas">
+            <div class="total"><span>Valor devido</span><strong>${relatorioEscaparHtml(totalDevido)}</strong></div>
+            <div class="total"><span>Valor recebido</span><strong>${relatorioEscaparHtml(totalRecebido)}</strong></div>
+            <div class="total principal"><span>Diferença total</span><strong>${relatorioEscaparHtml(diferencaTotal)}</strong></div>
+        </div>
+
+        ${gerarTabelaDiferencasRelatorioProfissional()}
+
+        <div class="rodape-diferencas-relatorio">
+            <span>Competências analisadas: ${relatorioEscaparHtml(qtdCompetencias)}</span>
+            <span>Células editadas manualmente: ${relatorioEscaparHtml(qtdEditadas)}</span>
+        </div>
+        <p class="nota-relatorio">Resultado reproduzido a partir da tabela consolidada da Guia 4. O relatório não executa novamente os motores de cálculo.</p>
+    </section>`;
+}
+
 function gerarRelatorioFinal() {
     atualizarNavegacaoPorTipoAcao();
     const selecoes = obterSelecaoRelatorios();
@@ -543,15 +640,18 @@ function gerarRelatorioFinal() {
     }
 
     let html = montarCabecalhoRelatorioProfissional();
-    if (selecoes.includes('evolucao-devida')) html += gerarSecaoEvolucaoRelatorioProfissional();
+    const temEvolucao = selecoes.includes('evolucao-devida');
+    const temBeneficios = selecoes.includes('beneficios-recebidos');
+    const temDiferencas = selecoes.includes('diferencas');
 
-    const naoImplementadas = selecoes.filter(x => x !== 'evolucao-devida' && x !== 'beneficios-recebidos');
+    if (temEvolucao) html += gerarSecaoEvolucaoRelatorioProfissional();
+    if (temBeneficios) html += gerarSecaoBeneficiosRecebidosRelatorioProfissional(temEvolucao);
+    if (temDiferencas) html += gerarSecaoDiferencasRelatorioProfissional(temEvolucao || temBeneficios);
+
+    const naoImplementadas = selecoes.filter(x => !['evolucao-devida', 'beneficios-recebidos', 'diferencas'].includes(x));
     if (naoImplementadas.length) {
         // Aviso apenas na interface. Não entra no documento impresso.
-        html += `<div class="no-print relatorio-aviso"><strong>Fase 1:</strong> a estrutura de seleção das demais guias já está preparada; os respectivos relatórios serão incorporados nas próximas fases.</div>`;
-    }
-    if (selecoes.includes('beneficios-recebidos')) {
-        html += gerarSecaoBeneficiosRecebidosRelatorioProfissional(selecoes.includes('evolucao-devida'));
+        html += `<div class="no-print relatorio-aviso"><strong>Fase 1:</strong> as seções selecionadas das Guias 5 a 8 ainda serão incorporadas às próximas fases.</div>`;
     }
     preview.innerHTML = html;
 }
