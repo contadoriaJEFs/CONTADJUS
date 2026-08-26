@@ -1,3 +1,10 @@
+# ContadJus — B86
+
+Versão B86 derivada da B85, com acabamento tipográfico e linguagem final do relatório.
+
+**Base:** B85
+**Escopo:** apresentação do relatório; motores de cálculo preservados.
+
 ## Versão atual: B83
 
 **Versão de trabalho: B83 — Guia 4 integrada ao relatório profissional; histórico consolidado.**
@@ -873,3 +880,8 @@ Uso profissional interno no âmbito de cálculos judiciais e administrativos. A 
 ## Documentação
 
 - `docs/GLOSSARIO_CONTADJUS.md` — glossário dos termos do projeto em linguagem simples.
+
+
+## B85 — Ajuste tipográfico e visual
+
+B85 deriva integralmente da B84. As alterações desta versão são exclusivamente de apresentação do relatório: abreviação de `Competência` para `Comp.`, redistribuição das colunas das memórias, maior espaço para `Vlr. Final`, prevenção de quebra dos valores monetários finais, pequeno ganho de legibilidade na Guia 4 e rodapé institucional na impressão. Motores de cálculo, dados, JSON e regras permanecem preservados.

@@ -1567,3 +1567,433 @@
   }
   #relatorioImpressaoPortal .rodape-diferencas-relatorio { font-size:6.8pt !important; }
 }
+
+/* ================================================================
+   B84 — AJUSTE TIPOGRÁFICO / LEGIBILIDADE DE TABELAS
+   Referência: padrão observado na Fábrica de Cálculos (TRF3).
+   Escopo: apresentação visual. Não altera motores, dados ou vínculos.
+   ================================================================ */
+
+/* Interface: tabelas densas usam Arial, corpo leve e destaque seletivo. */
+.conteudo-guia table,
+.conteudo-guia table th,
+.conteudo-guia table td,
+.conteudo-guia table input,
+.memoria-tabela,
+.memoria-tabela th,
+.memoria-tabela td,
+#tabelaDiferencas,
+#tabelaDiferencas th,
+#tabelaDiferencas td,
+#tabelaDiferencas input {
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+/* Memórias previdenciárias: remove o aspecto monoespaçado e amplia levemente. */
+.memoria-tabela {
+    font-size: 0.875rem !important;
+}
+.memoria-tabela tbody,
+.memoria-tabela tbody td {
+    font-size: 0.875rem !important;
+    font-weight: 400 !important;
+    line-height: 1.35 !important;
+}
+.memoria-tabela th {
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+}
+.memoria-tabela .valor-final {
+    font-weight: 700 !important;
+}
+
+/* Guia 4: mais legibilidade nas séries longas de competências. */
+#tabelaDiferencas {
+    font-size: 0.9rem !important;
+}
+#tabelaDiferencas thead th {
+    font-size: 0.70rem !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    padding: 0.65rem 0.65rem !important;
+}
+#tabelaDiferencas tbody td {
+    font-size: 0.9rem !important;
+    font-weight: 400 !important;
+    line-height: 1.35 !important;
+    padding: 0.58rem 0.65rem !important;
+}
+#tabelaDiferencas tbody td .diff-positivo,
+#tabelaDiferencas tbody td .diff-negativo,
+#tabelaDiferencas tbody td .diff-zero {
+    font-weight: 400 !important;
+}
+
+/* Pequeno ganho de largura útil: permite fonte maior sem comprimir colunas. */
+#previewRelatorio.relatorio-documento {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+/* Relatório: mesma família das tabelas da referência, com pesos mais leves. */
+.relatorio-documento,
+.relatorio-documento table,
+.relatorio-documento table th,
+.relatorio-documento table td {
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+.relatorio-documento table.tabela-evolucao-relatorio {
+    font-size: 11px !important;
+}
+.relatorio-documento table.tabela-evolucao-relatorio th {
+    font-size: 9px !important;
+    font-weight: 700 !important;
+}
+.relatorio-documento table.tabela-evolucao-relatorio td {
+    font-size: 10.5px !important;
+    font-weight: 400 !important;
+    line-height: 1.28 !important;
+}
+.relatorio-documento table.tabela-evolucao-relatorio td:last-child {
+    font-weight: 700 !important;
+}
+.relatorio-documento table.tabela-beneficio-recebido {
+    font-size: 11px !important;
+}
+.relatorio-documento table.tabela-beneficio-recebido th {
+    font-size: 9px !important;
+    font-weight: 700 !important;
+}
+.relatorio-documento table.tabela-beneficio-recebido td {
+    font-size: 10.5px !important;
+    font-weight: 400 !important;
+    line-height: 1.28 !important;
+}
+.relatorio-documento table.tabela-beneficio-recebido td:last-child {
+    font-weight: 700 !important;
+}
+.relatorio-documento table.tabela-diferencas-relatorio {
+    font-size: 10.5px !important;
+}
+.relatorio-documento table.tabela-diferencas-relatorio th {
+    font-size: 8.5px !important;
+    font-weight: 700 !important;
+}
+.relatorio-documento table.tabela-diferencas-relatorio td {
+    font-size: 10.5px !important;
+    font-weight: 400 !important;
+    line-height: 1.25 !important;
+}
+.relatorio-documento table.tabela-diferencas-relatorio td.destaque-diferenca {
+    font-weight: 700 !important;
+}
+
+/* Evita o aspecto excessivamente pesado dos títulos e números. */
+.relatorio-documento .titulo-documento,
+.relatorio-documento .identificacao-relatorio strong,
+.relatorio-documento .quadro-resumo .valor,
+.relatorio-documento .resultado-destaque .valor,
+.relatorio-documento .memoria-titulo-relatorio,
+.relatorio-documento .quadro-totais-diferencas strong {
+    font-weight: 700 !important;
+}
+
+@media print {
+    /* Dois milímetros a mais de área útil lateral, sem alterar o formato A4. */
+    @page { margin-left: 11mm; margin-right: 11mm; }
+
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio {
+        font-size: 8.3pt !important;
+    }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio th {
+        font-size: 7.4pt !important;
+        font-weight: 700 !important;
+        padding: 2.0mm 1.1mm !important;
+    }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio td {
+        font-size: 8.1pt !important;
+        font-weight: 400 !important;
+        line-height: 1.18 !important;
+        padding: 2.0mm 1.1mm !important;
+    }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio td:last-child {
+        font-weight: 700 !important;
+    }
+
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido {
+        font-size: 8.3pt !important;
+    }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido th {
+        font-size: 7.4pt !important;
+        font-weight: 700 !important;
+        padding: 2.0mm 1.0mm !important;
+    }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido td {
+        font-size: 8.1pt !important;
+        font-weight: 400 !important;
+        line-height: 1.18 !important;
+        padding: 2.0mm 1.0mm !important;
+    }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido td:last-child {
+        font-weight: 700 !important;
+    }
+
+    #relatorioImpressaoPortal table.tabela-diferencas-relatorio {
+        font-size: 8.2pt !important;
+    }
+    #relatorioImpressaoPortal table.tabela-diferencas-relatorio th {
+        font-size: 7.1pt !important;
+        font-weight: 700 !important;
+        padding: 1.9mm 1.1mm !important;
+    }
+    #relatorioImpressaoPortal table.tabela-diferencas-relatorio td {
+        font-size: 8.0pt !important;
+        font-weight: 400 !important;
+        line-height: 1.18 !important;
+        padding: 1.9mm 1.1mm !important;
+    }
+    #relatorioImpressaoPortal table.tabela-diferencas-relatorio td.destaque-diferenca {
+        font-weight: 700 !important;
+    }
+}
+
+
+/* ===================================================================== */
+/* B85 — AJUSTE TIPOGRÁFICO E LEGIBILIDADE DO RELATÓRIO                  */
+/* Base: B84. Escopo: apresentação visual; motores preservados.          */
+/* ===================================================================== */
+
+/* Memória: mesma linguagem do título de resultado, sem excesso de peso. */
+.relatorio-documento .memoria-titulo-relatorio {
+    text-transform: none !important;
+    font-size: 11.5pt !important;
+    font-weight: 700 !important;
+    letter-spacing: 0 !important;
+    color: #002b66 !important;
+    margin: 0 0 2.2mm !important;
+    line-height: 1.2 !important;
+}
+
+/* Distribuição horizontal das colunas.
+   Mantém Teórico/Evoluído e abre espaço para o Valor Final. */
+.relatorio-documento table.tabela-evolucao-relatorio col.col-competencia { width: 8% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-tipo { width: 13% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-indice { width: 8% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-salario { width: 12% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-teto { width: 12% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-status { width: 9% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-teorico { width: 11% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-evoluido { width: 11% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-final { width: 16% !important; }
+
+.relatorio-documento table.tabela-beneficio-recebido col.col-competencia { width: 7% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-tipo { width: 11% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-indice { width: 7% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-salario { width: 10% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-teto { width: 10% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-indice-teto { width: 8% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-status { width: 8% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-teorico { width: 11% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-evoluido { width: 11% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-final { width: 17% !important; }
+
+/* Evita que Tipo/Status e os valores finais quebrem desnecessariamente. */
+.relatorio-documento table.tabela-evolucao-relatorio th:nth-child(2),
+.relatorio-documento table.tabela-evolucao-relatorio td:nth-child(2),
+.relatorio-documento table.tabela-evolucao-relatorio th:nth-child(6),
+.relatorio-documento table.tabela-evolucao-relatorio td:nth-child(6),
+.relatorio-documento table.tabela-beneficio-recebido th:nth-child(2),
+.relatorio-documento table.tabela-beneficio-recebido td:nth-child(2),
+.relatorio-documento table.tabela-beneficio-recebido th:nth-child(7),
+.relatorio-documento table.tabela-beneficio-recebido td:nth-child(7),
+.relatorio-documento table.tabela-evolucao-relatorio td:last-child,
+.relatorio-documento table.tabela-beneficio-recebido td:last-child {
+    white-space: nowrap !important;
+}
+
+/* Guia 4: pequeno ganho de respiro, sem engrossar os dados. */
+#tabelaDiferencas tbody td {
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 0.92rem !important;
+    line-height: 1.42 !important;
+    padding-top: 0.62rem !important;
+    padding-bottom: 0.62rem !important;
+    font-weight: 400 !important;
+}
+#tabelaDiferencas tbody td input { font-weight: 400 !important; }
+#tabelaDiferencas thead th { font-family: Arial, Helvetica, sans-serif !important; }
+
+/* Rodapé institucional: oculto na tela, presente na impressão. */
+.relatorio-documento .rodape-institucional { display: none; }
+
+@media print {
+    #relatorioImpressaoPortal .memoria-titulo-relatorio {
+        font-size: 9.7pt !important;
+        font-weight: 700 !important;
+        text-transform: none !important;
+        letter-spacing: 0 !important;
+        margin: 0 0 2mm !important;
+    }
+
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio,
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido {
+        table-layout: fixed !important;
+    }
+
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-competencia { width: 8% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-tipo { width: 13% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-indice { width: 8% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-salario { width: 12% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-teto { width: 12% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-status { width: 9% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-teorico { width: 11% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-evoluido { width: 11% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-final { width: 16% !important; }
+
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-competencia { width: 7% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-tipo { width: 11% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-indice { width: 7% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-salario { width: 10% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-teto { width: 10% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-indice-teto { width: 8% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-status { width: 8% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-teorico { width: 11% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-evoluido { width: 11% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-final { width: 17% !important; }
+
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio td:last-child,
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido td:last-child {
+        white-space: nowrap !important;
+        font-weight: 700 !important;
+    }
+
+    #relatorioImpressaoPortal .rodape-institucional {
+        display: flex !important;
+        position: fixed !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        height: 7mm !important;
+        padding: 2mm 0 0 !important;
+        border-top: 1px solid #00a8b5 !important;
+        color: #008080 !important;
+        background: #fff !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        font-family: Arial, Helvetica, sans-serif !important;
+        font-size: 7.5pt !important;
+        line-height: 1 !important;
+    }
+}
+
+
+/* =====================================================================
+   B86 — ACABAMENTO TIPOGRÁFICO E LINGUAGEM DO RELATÓRIO
+   Base: B85. Escopo: apresentação do relatório; motores preservados.
+   ===================================================================== */
+
+/* Títulos de memória seguem o mesmo tratamento leve usado no sistema
+   para "Resultado da Evolução Previdenciária". */
+.relatorio-documento .memoria-titulo-relatorio {
+    margin: 0 0 12px !important;
+    padding-bottom: 6px !important;
+    border-bottom: 2px solid #00a8b5 !important;
+    color: #002b66 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 17px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.2 !important;
+    text-transform: none !important;
+}
+
+/* Corpo de tabela: fonte única e leve. */
+.relatorio-documento table.tabela-evolucao-relatorio,
+.relatorio-documento table.tabela-beneficio-recebido,
+.relatorio-documento table.tabela-diferencas-relatorio {
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.relatorio-documento table.tabela-evolucao-relatorio td,
+.relatorio-documento table.tabela-beneficio-recebido td,
+.relatorio-documento table.tabela-diferencas-relatorio td {
+    font-weight: 400 !important;
+}
+
+/* Vlr. Final: destaque suficiente, sem o aspecto pesado da B85. */
+.relatorio-documento table.tabela-evolucao-relatorio td:last-child,
+.relatorio-documento table.tabela-beneficio-recebido td:last-child {
+    font-weight: 600 !important;
+    color: #002b66 !important;
+}
+
+/* Guia 4 permanece como está: diferença devida continua com destaque 700. */
+.relatorio-documento table.tabela-diferencas-relatorio td.destaque-diferenca {
+    font-weight: 700 !important;
+}
+
+/* Distribuição refinada após retirar FALLBACK da apresentação. */
+.relatorio-documento table.tabela-evolucao-relatorio col.col-competencia { width: 8% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-tipo { width: 12% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-indice { width: 8% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-salario { width: 12% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-teto { width: 12% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-status { width: 8% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-teorico { width: 11% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-evoluido { width: 11% !important; }
+.relatorio-documento table.tabela-evolucao-relatorio col.col-final { width: 18% !important; }
+
+.relatorio-documento table.tabela-beneficio-recebido col.col-competencia { width: 7% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-tipo { width: 10% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-indice { width: 7% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-salario { width: 10% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-teto { width: 10% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-indice-teto { width: 8% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-status { width: 7% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-teorico { width: 11% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-evoluido { width: 11% !important; }
+.relatorio-documento table.tabela-beneficio-recebido col.col-final { width: 19% !important; }
+
+@media print {
+    #relatorioImpressaoPortal .memoria-titulo-relatorio {
+        font-size: 11pt !important;
+        font-weight: 400 !important;
+        text-transform: none !important;
+        letter-spacing: 0 !important;
+        line-height: 1.2 !important;
+        margin: 0 0 3mm !important;
+        padding-bottom: 1.6mm !important;
+        border-bottom: 1.4pt solid #00a8b5 !important;
+    }
+
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-competencia { width: 8% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-tipo { width: 12% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-indice { width: 8% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-salario { width: 12% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-teto { width: 12% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-status { width: 8% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-teorico { width: 11% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-evoluido { width: 11% !important; }
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio col.col-final { width: 18% !important; }
+
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-competencia { width: 7% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-tipo { width: 10% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-indice { width: 7% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-salario { width: 10% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-teto { width: 10% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-indice-teto { width: 8% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-status { width: 7% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-teorico { width: 11% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-evoluido { width: 11% !important; }
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido col.col-final { width: 19% !important; }
+
+    #relatorioImpressaoPortal table.tabela-evolucao-relatorio td:last-child,
+    #relatorioImpressaoPortal table.tabela-beneficio-recebido td:last-child {
+        font-weight: 600 !important;
+    }
+
+    #relatorioImpressaoPortal table.tabela-diferencas-relatorio td.destaque-diferenca {
+        font-weight: 700 !important;
+    }
+}

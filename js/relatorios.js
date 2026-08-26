@@ -338,7 +338,7 @@ function gerarSecaoEvolucaoRelatorioProfissional() {
         return `
             <section class="secao-relatorio">
                 <h2>Resultado da Evolução Previdenciária</h2>
-                <p class="nota-relatorio">Não há memória de cálculo disponível. Realize o cálculo da evolução na Guia 2 antes de gerar este relatório.</p>
+                <p class="nota-relatorio">Não há memória de cálculo disponível. Realize o cálculo da evolução do benefício devido antes de gerar este relatório.</p>
             </section>`;
     }
 
@@ -349,7 +349,8 @@ function gerarSecaoEvolucaoRelatorioProfissional() {
     const rma = document.getElementById('resRMA')?.textContent?.trim() || 'R$ 0,00';
 
     const linhas = memoria.map(item => {
-        const tipo = item.tipo || '-';
+        const tipoInterno = item.tipo || '-';
+        const tipo = tipoInterno === 'PRO RATA/FALLBACK' ? 'PRO RATA' : tipoInterno;
         const indice = item.indice === null || item.indice === undefined ? '-' : Number(item.indice).toFixed(4);
         const salario = relatorioValorMoeda(item.salarioMinimo);
         const teto = relatorioValorMoeda(item.teto);
@@ -397,11 +398,11 @@ function gerarSecaoEvolucaoRelatorioProfissional() {
                     <col class="col-final">
                 </colgroup>
                 <thead><tr>
-                    <th>Competência</th><th>Tipo</th><th class="num">Índice</th><th class="num">Sal. mín.</th><th class="num">Teto</th><th>Status</th><th class="num">Vlr. teórico</th><th class="num">Vlr. evoluído</th><th class="num">Vlr. final</th>
+                    <th>Comp.</th><th>Tipo</th><th class="num">Índice</th><th class="num">Sal. mín.</th><th class="num">Teto</th><th>Status</th><th class="num">Vlr. teórico</th><th class="num">Vlr. evoluído</th><th class="num">Vlr. final</th>
                 </tr></thead>
                 <tbody>${linhas}</tbody>
             </table>
-            <p class="nota-relatorio">Memória de cálculo reproduzida a partir dos resultados consolidados da Guia 2. Os motores de cálculo não são executados pelo relatório.</p>
+            <p class="nota-relatorio">Memória de cálculo reproduzida a partir dos resultados consolidados da evolução do benefício devido. O relatório apresenta os resultados já calculados pelo sistema e não realiza novo processamento dos valores.</p>
         </section>`;
 }
 
@@ -428,7 +429,8 @@ function gerarTabelaMemoriaBeneficioRecebido(memoria) {
         const [mb, ab] = String(b.competencia || '').split('/').map(Number);
         return (aa * 100 + ma) - (ab * 100 + mb);
     }).map(item => {
-        const tipo = item.tipo || '-';
+        const tipoInterno = item.tipo || '-';
+        const tipo = tipoInterno === 'PRO RATA/FALLBACK' ? 'PRO RATA' : tipoInterno;
         const indice = item.indice === null || item.indice === undefined ? '-' : Number(item.indice).toFixed(4);
         const indiceTeto = item.indiceTeto === null || item.indiceTeto === undefined ? '-' : Number(item.indiceTeto).toFixed(5);
         const status = item.status === 'LIMITADO_TETO' ? 'Teto' : item.status === 'SALARIO_MINIMO' ? 'Salário mínimo' : item.status === 'PISO' ? 'Piso' : (item.status || 'Normal');
@@ -453,7 +455,7 @@ function gerarTabelaMemoriaBeneficioRecebido(memoria) {
             <col class="col-status"><col class="col-teorico"><col class="col-evoluido"><col class="col-final">
         </colgroup>
         <thead><tr>
-            <th>Competência</th><th>Tipo</th><th class="num">Índice</th><th class="num">Sal. mín.</th>
+            <th>Comp.</th><th>Tipo</th><th class="num">Índice</th><th class="num">Sal. mín.</th>
             <th class="num">Teto</th><th class="num">Índ. teto</th><th>Status</th>
             <th class="num">Vlr. teórico</th><th class="num">Vlr. evoluído</th><th class="num">Vlr. final</th>
         </tr></thead>
@@ -468,14 +470,14 @@ function gerarSecaoBeneficiosRecebidosRelatorioProfissional(continuaEmNovaPagina
     if (!beneficios.length) {
         return `<section class="secao-relatorio secao-beneficios-recebidos ${continuaEmNovaPagina ? 'continua-em-pagina' : ''}">
             <h2>Resultado da Evolução do Benefício Recebido</h2>
-            <p class="nota-relatorio">Nenhum benefício recebido foi cadastrado na Guia 3.</p>
+            <p class="nota-relatorio">Nenhum benefício recebido foi cadastrado.</p>
         </section>`;
     }
 
     if (!calculados.length) {
         return `<section class="secao-relatorio secao-beneficios-recebidos ${continuaEmNovaPagina ? 'continua-em-pagina' : ''}">
             <h2>Resultado da Evolução do Benefício Recebido</h2>
-            <p class="nota-relatorio">Não há memória de evolução disponível. Calcule pelo menos um benefício na Guia 3 antes de gerar este relatório.</p>
+            <p class="nota-relatorio">Não há memória de evolução disponível. Calcule pelo menos um benefício recebido antes de gerar este relatório.</p>
         </section>`;
     }
 
@@ -527,7 +529,7 @@ function gerarSecaoBeneficiosRecebidosRelatorioProfissional(continuaEmNovaPagina
         </div>`;
     });
 
-    html += `<p class="nota-relatorio">Memória da evolução reproduzida a partir dos resultados consolidados da Guia 3. Os motores de cálculo não são executados pelo relatório.</p></section>`;
+    html += `<p class="nota-relatorio">Memória da evolução do benefício recebido reproduzida a partir dos resultados consolidados do cálculo. O relatório apresenta os resultados já calculados pelo sistema e não realiza novo processamento dos valores.</p></section>`;
     return html;
 }
 
@@ -598,7 +600,7 @@ function gerarSecaoDiferencasRelatorioProfissional(continuaEmNovaPagina = false)
     if (!temLinhas) {
         return `<section class="secao-relatorio secao-diferencas-relatorio ${continuaEmNovaPagina ? 'continua-em-pagina' : ''}">
             <h2>Resultado das Diferenças</h2>
-            <p class="nota-relatorio">Não há diferenças calculadas disponíveis. Calcule as evoluções das Guias 2 e 3 e, em seguida, processe a Guia 4 antes de gerar este relatório.</p>
+            <p class="nota-relatorio">Não há diferenças calculadas disponíveis. Calcule a evolução do benefício devido e dos benefícios recebidos e, em seguida, processe o demonstrativo das diferenças antes de gerar este relatório.</p>
         </section>`;
     }
 
@@ -624,7 +626,7 @@ function gerarSecaoDiferencasRelatorioProfissional(continuaEmNovaPagina = false)
             <span>Competências analisadas: ${relatorioEscaparHtml(qtdCompetencias)}</span>
             <span>Células editadas manualmente: ${relatorioEscaparHtml(qtdEditadas)}</span>
         </div>
-        <p class="nota-relatorio">Resultado reproduzido a partir da tabela consolidada da Guia 4. O relatório não executa novamente os motores de cálculo.</p>
+        <p class="nota-relatorio">Demonstrativo das diferenças reproduzido a partir dos resultados consolidados do cálculo. O relatório apresenta os resultados já calculados pelo sistema e não realiza novo processamento dos valores.</p>
     </section>`;
 }
 
@@ -672,6 +674,13 @@ function imprimirRelatorioProfissional() {
     // fazendo todo o CSS profissional do relatório deixar de ser aplicado no PDF.
     portal.className = 'relatorio-documento';
     portal.innerHTML = atual.innerHTML;
+
+    // B85 — rodapé institucional do documento impresso.
+    const rodapeInstitucional = document.createElement('div');
+    rodapeInstitucional.className = 'rodape-institucional';
+    rodapeInstitucional.textContent = 'ContadJus • Liquidação de Sentenças e Cálculos Judiciais';
+    portal.appendChild(rodapeInstitucional);
+
     document.body.appendChild(portal);
     window.print();
     setTimeout(() => portal.remove(), 1000);

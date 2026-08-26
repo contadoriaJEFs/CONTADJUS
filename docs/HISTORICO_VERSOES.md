@@ -1,3 +1,23 @@
+# B86 — 2026-08-26
+- Base diretamente derivada da B85.
+- Relatório: `PRO RATA/FALLBACK` passa a ser exibido apenas como `PRO RATA`, preservando o valor interno do cálculo.
+- Títulos das memórias passam a seguir o tratamento leve dos títulos de resultado do sistema: regular, navy e linha teal inferior.
+- Vlr. Final das Guias 2 e 3 recebe destaque mais leve, evitando aparência excessivamente pesada.
+- Diferença Devida da Guia 4 mantém seu destaque atual.
+- Ajuste fino das larguras de Tipo, Status e Vlr. Final nas memórias das Guias 2 e 3.
+- Notas do relatório deixam de expor `Guia 2`, `Guia 3`, `Guia 4` e `motores de cálculo` ao usuário final.
+- Mantida a linha teal discreta e o rodapé institucional da B85.
+- Motores, índices, regras matemáticas, persistência e cálculos preservados.
+
+# B85 — 2026-08-25
+- Base integralmente preservada da B84.
+- Relatórios profissionais: `Competência` passa a `Comp.` nas memórias.
+- Redistribuídas as larguras das colunas, preservando `Vlr. Teórico` e `Vlr. Evoluído` e ampliando o espaço de `Vlr. Final`.
+- Valores monetários finais impedidos de quebra de linha.
+- Guia 4 recebe pequeno ganho de respiro e legibilidade sem alteração de conteúdo ou cálculo.
+- Incluído rodapé institucional na impressão: `ContadJus • Liquidação de Sentenças e Cálculos Judiciais`.
+- Motores de cálculo, dados, JSON e regras preservados.
+
 # CONTADJUS — HISTÓRICO CONSOLIDADO DE VERSÕES
 
 Este arquivo consolida os antigos changelogs individuais do projeto. A partir da B83, novos registros devem ser acrescentados aqui, evitando a proliferação de arquivos pequenos no repositório.
