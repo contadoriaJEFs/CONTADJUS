@@ -1,3 +1,44 @@
+# B96 — 2026-08-27
+- Guia 5: memória da atualização ampliada na tela para preservar legibilidade.
+- Coeficiente/índice exibido com 8 casas decimais na Guia 5 e no relatório/PDF, preservando a precisão interna.
+- Valores TOTAL por competência deixam de usar negrito; permanecem em azul. A linha totalizadora final continua em destaque.
+- Totalizador final da memória foi separado do corpo da tabela para impedir que a linha de totais seja quebrada entre páginas no PDF.
+- Alterações exclusivamente de UX/UI e apresentação. Motores, fórmulas e funções de cálculo preservados.
+
+# B95 — 2026-08-27
+- Guia 5: coeficientes exibidos com 8 casas decimais na camada de relatório/PDF; precisão interna preservada.
+- Linha de totais da memória protegida contra quebra de página.
+- Nenhum motor, fórmula ou função de cálculo alterado.
+
+## B94 — Relatórios: Guia 5
+
+- Inclusão efetiva da Guia 5 — Atualização na geração do relatório profissional e no PDF/impressão.
+- Ajustes exclusivos de UX/UI e apresentação da tabela para impressão.
+- Motores, fórmulas e funções de cálculo preservados.
+
+# B93 — 2026-08-27
+- Guia 5 passa a integrar o relatório profissional.
+- Criada memória da atualização com identificação da data-base, parâmetros, totais e tabela completa das competências.
+- A apresentação adapta a identidade visual do Master B79 ao volume de colunas da atualização, preservando legibilidade e repetição de cabeçalho na impressão.
+- O relatório apenas reproduz os resultados consolidados da Guia 5; não reexecuta o motor de cálculo.
+- Motores, índices, fórmulas e persistência preservados.
+
+# B91 — proporcionalidade da competência no mês da sentença
+
+- A Data da Sentença passa a usar o dia informado para aplicar pró-rata somente à competência do próprio mês.
+- A contagem é inclusiva: dia da sentença incluído.
+- Fórmula: dias considerados ÷ dias do mês.
+- Exemplo: 15/09/2022 em setembro de 30 dias = 15/30 = 50,00%.
+- O valor proporcional segue sendo atualizado até a Data de Atualização geral do cálculo.
+- Modal preservado e enriquecido com a informação do pró-rata.
+
+# B89 — 2026-08-27
+- Honorários sucumbenciais: acesso ao detalhamento mês a mês da base `Até a sentença` corrigido para aparecer ao selecionar o critério.
+- Data da Sentença: máscara automática para entrada sem barras, aceitando `MM/AAAA` e `DD/MM/AAAA`.
+- Mantido o detalhamento para rastreabilidade da base, com competência, valor original, coeficiente, valor corrigido, juros, SELIC e total.
+- Guia 5: incluído letreiro discreto, móvel e exclusivamente informativo com INPC, IPCA-E, SELIC, Taxa Legal e Taxa Legal Previdenciária.
+- Motores de cálculo, fórmulas e parâmetros selecionados não são alterados pelo letreiro informativo.
+
 # B86 — 2026-08-26
 - Base diretamente derivada da B85.
 - Relatório: `PRO RATA/FALLBACK` passa a ser exibido apenas como `PRO RATA`, preservando o valor interno do cálculo.
@@ -2517,3 +2558,22 @@ A estrutura `formacaoDemanda` e a compatibilidade com `acordoRenuncia` permanece
 ## Organização
 - Changelogs individuais consolidados em `docs/HISTORICO_VERSOES.md`, reduzindo a quantidade de arquivos do repositório sem perda do histórico textual.
 - Motores de cálculo, IDs, JSON e vínculos entre guias preservados.
+
+
+## B92 — Honorários: pró-rata da sentença
+- Corrigida a identificação da competência do mês da sentença para aplicar o pró-rata quando o dia é informado.
+- Precatório: painel de cálculo abre por padrão quando disponível.
+
+
+### B96 — UX/UI e PDF da Guia 5
+Ajustes exclusivamente de apresentação: memória da Guia 5 ampliada na tela, coeficiente exibido com 8 casas decimais, TOTAL das linhas sem negrito e totalizador final protegido contra quebra entre páginas no relatório/PDF. Motores e funções de cálculo preservados.
+
+## B97 — Ajuste final das tabelas
+- Base visual preservada: B96.
+- Corpo da tabela da Guia 5: 8,0 px.
+- Demais tamanhos de fonte preservados.
+- R$ removido das linhas normais das tabelas.
+- Negrito removido das linhas normais das tabelas.
+- Totalizadores preservados com R$ e negrito.
+- Diferença Devida permanece azul e sem negrito.
+- Motores e funções de cálculo preservados.

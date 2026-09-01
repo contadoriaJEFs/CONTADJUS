@@ -1356,6 +1356,123 @@
   #relatorioImpressaoPortal tr { page-break-inside: avoid !important; }
 }
 
+
+/* ================================================================
+   GUIA 5 — RELATÓRIO PROFISSIONAL DA ATUALIZAÇÃO
+   Adapta a identidade visual do Master B79 à tabela extensa da Guia 5.
+   ================================================================ */
+.relatorio-documento .secao-atualizacao-relatorio { margin-top:18px; }
+.relatorio-documento .quadro-resumo-atualizacao .valor-menor {
+    font-size:10.5px;
+    line-height:1.25;
+}
+.relatorio-documento .quadro-totais-atualizacao {
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    border:1px solid #cbd5e1;
+    border-radius:3px;
+    overflow:hidden;
+    margin-bottom:10px;
+}
+.relatorio-documento .quadro-totais-atualizacao .total {
+    padding:9px 10px;
+    background:#f8fafc;
+    border-right:1px solid #e2e8f0;
+}
+.relatorio-documento .quadro-totais-atualizacao .total:last-child { border-right:0; }
+.relatorio-documento .quadro-totais-atualizacao span {
+    display:block;
+    font-size:8.5px;
+    color:#64748b;
+    text-transform:uppercase;
+    font-weight:700;
+    letter-spacing:.2px;
+}
+.relatorio-documento .quadro-totais-atualizacao strong {
+    display:block;
+    margin-top:3px;
+    font-size:12px;
+    color:#1e293b;
+}
+.relatorio-documento .quadro-totais-atualizacao .principal {
+    background:#f0fdfa;
+    border-left:3px solid #00a8b5;
+}
+.relatorio-documento .quadro-totais-atualizacao .principal strong { color:#002b66; }
+.relatorio-documento .tabela-atualizacao-relatorio-wrap {
+    width:100%;
+    overflow-x:auto;
+    margin-bottom:8px;
+}
+.relatorio-documento table.tabela-atualizacao-relatorio {
+    width:100%;
+    max-width:100%;
+    table-layout:fixed;
+    border-collapse:collapse;
+    font-size:7.1px;
+}
+.relatorio-documento table.tabela-atualizacao-relatorio th {
+    background:#002b66;
+    color:#fff;
+    text-align:center;
+    padding:5px 3px;
+    border:1px solid #002b66;
+    font-size:7px;
+    line-height:1.1;
+    text-transform:uppercase;
+    overflow-wrap:anywhere;
+}
+.relatorio-documento table.tabela-atualizacao-relatorio td {
+    padding:4.5px 3px;
+    border:1px solid #cbd5e1;
+    color:#1e293b;
+    line-height:1.1;
+    overflow-wrap:anywhere;
+    white-space:nowrap;
+}
+.relatorio-documento table.tabela-atualizacao-relatorio th:nth-child(1),
+.relatorio-documento table.tabela-atualizacao-relatorio td:nth-child(1) { width:7%; }
+.relatorio-documento table.tabela-atualizacao-relatorio th:nth-child(2),
+.relatorio-documento table.tabela-atualizacao-relatorio td:nth-child(2) { width:10%; }
+.relatorio-documento table.tabela-atualizacao-relatorio th:nth-child(3),
+.relatorio-documento table.tabela-atualizacao-relatorio td:nth-child(3) { width:9%; }
+.relatorio-documento table.tabela-atualizacao-relatorio th:nth-child(4),
+.relatorio-documento table.tabela-atualizacao-relatorio td:nth-child(4) { width:10%; }
+.relatorio-documento table.tabela-atualizacao-relatorio th:nth-child(5),
+.relatorio-documento table.tabela-atualizacao-relatorio td:nth-child(5) { width:8%; }
+.relatorio-documento table.tabela-atualizacao-relatorio th:nth-child(6),
+.relatorio-documento table.tabela-atualizacao-relatorio td:nth-child(6) { width:9%; }
+.relatorio-documento table.tabela-atualizacao-relatorio th:nth-child(7),
+.relatorio-documento table.tabela-atualizacao-relatorio td:nth-child(7) { width:9%; }
+.relatorio-documento table.tabela-atualizacao-relatorio th:nth-child(8),
+.relatorio-documento table.tabela-atualizacao-relatorio td:nth-child(8) { width:10%; }
+.relatorio-documento table.tabela-atualizacao-relatorio th:nth-child(9),
+.relatorio-documento table.tabela-atualizacao-relatorio td:nth-child(9) { width:8%; }
+.relatorio-documento table.tabela-atualizacao-relatorio th:nth-child(10),
+.relatorio-documento table.tabela-atualizacao-relatorio td:nth-child(10) { width:10%; }
+.relatorio-documento table.tabela-atualizacao-relatorio th:nth-child(11),
+.relatorio-documento table.tabela-atualizacao-relatorio td:nth-child(11) { width:10%; }
+.relatorio-documento table.tabela-atualizacao-relatorio td.num,
+.relatorio-documento table.tabela-atualizacao-relatorio th.num { text-align:right; }
+.relatorio-documento table.tabela-atualizacao-relatorio tbody tr:nth-child(even) td { background:#f1f5f9; }
+.relatorio-documento table.tabela-atualizacao-relatorio td.total,
+.relatorio-documento table.tabela-atualizacao-relatorio tfoot td.total { font-weight:800; color:#002b66; }
+.relatorio-documento table.tabela-atualizacao-relatorio tfoot th,
+.relatorio-documento table.tabela-atualizacao-relatorio tfoot td {
+    background:#eaf4f6;
+    color:#002b66;
+    font-weight:800;
+    border-top:1.2px solid #00a8b5;
+}
+
+/* B95 — GUIA 5: preserva a linha de totais como bloco indivisível.
+   Apenas apresentação/paginação; nenhum valor de cálculo é alterado. */
+.relatorio-documento table.tabela-atualizacao-relatorio tfoot,
+.relatorio-documento table.tabela-atualizacao-relatorio tfoot tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+}
+
 /* ================================================================
    GUIA 4 — RELATÓRIO PROFISSIONAL DAS DIFERENÇAS
    Mesma identidade visual das evoluções previdenciárias.
@@ -1996,4 +2113,186 @@
     #relatorioImpressaoPortal table.tabela-diferencas-relatorio td.destaque-diferenca {
         font-weight: 700 !important;
     }
+}
+
+
+/* B89 — letreiro informativo dos últimos índices da Guia 5 */
+.contadjus-indices-ticker {
+    flex: 1 1 520px;
+    min-width: 280px;
+    max-width: 100%;
+    overflow: hidden;
+    border-left: 1px solid #cbd5e1;
+    padding-left: 10px;
+}
+.contadjus-indices-ticker-viewport {
+    overflow: hidden;
+    width: 100%;
+}
+.contadjus-indices-ticker-track {
+    display: inline-flex;
+    align-items: center;
+    gap: 22px;
+    width: max-content;
+    white-space: nowrap;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: #64748b;
+    animation: contadjus-indices-marquee 42s linear infinite;
+    will-change: transform;
+}
+.contadjus-indices-ticker-track span {
+    display: inline-flex;
+    align-items: center;
+}
+.contadjus-indices-ticker-track strong {
+    color: #334155;
+    margin-left: 3px;
+}
+.contadjus-indices-ticker-source {
+    color: #94a3b8;
+}
+@keyframes contadjus-indices-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .contadjus-indices-ticker-track { animation: none; }
+}
+@media (max-width: 768px) {
+    .contadjus-indices-ticker {
+        flex-basis: 100%;
+        border-left: 0;
+        border-top: 1px solid #e2e8f0;
+        padding-left: 0;
+        padding-top: 7px;
+    }
+}
+
+/* B94 — GUIA 5 / ATUALIZAÇÃO — APRESENTAÇÃO PDF
+   Escopo exclusivo: UX/UI e impressão. Não altera motores de cálculo. */
+@media print {
+  #relatorioImpressaoPortal .secao-atualizacao-relatorio.continua-em-pagina {
+      break-before: page !important; page-break-before: always !important;
+  }
+  #relatorioImpressaoPortal .secao-atualizacao-relatorio {
+      break-inside: auto !important;
+  }
+  #relatorioImpressaoPortal .tabela-atualizacao-relatorio-wrap {
+      width: 100% !important; overflow: visible !important; margin-bottom: 2mm !important;
+  }
+  #relatorioImpressaoPortal table.tabela-atualizacao-relatorio {
+      width: 100% !important; max-width: 100% !important; table-layout: fixed !important;
+      font-size: 7.4pt !important; border-collapse: collapse !important;
+  }
+  #relatorioImpressaoPortal table.tabela-atualizacao-relatorio th {
+      background:#002b66 !important; color:#fff !important;
+      border:1px solid #002b66 !important; padding: 1.9mm 1.0mm !important;
+      font-size: 6.8pt !important; line-height:1.08 !important;
+      white-space: normal !important; overflow-wrap: normal !important;
+      -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
+  }
+  #relatorioImpressaoPortal table.tabela-atualizacao-relatorio td {
+      padding: 1.65mm 1.0mm !important; font-size: 7.2pt !important;
+      line-height:1.12 !important; white-space:nowrap !important;
+      border:1px solid #cbd5e1 !important;
+  }
+  #relatorioImpressaoPortal table.tabela-atualizacao-relatorio tbody tr:nth-child(even) td {
+      background:#f1f5f9 !important;
+      -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
+  }
+  #relatorioImpressaoPortal table.tabela-atualizacao-relatorio tfoot th,
+  #relatorioImpressaoPortal table.tabela-atualizacao-relatorio tfoot td {
+      background:#eaf4f6 !important; color:#002b66 !important;
+      border-top:1.2px solid #00a8b5 !important;
+      -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
+  }
+  #relatorioImpressaoPortal table.tabela-atualizacao-relatorio tfoot,
+  #relatorioImpressaoPortal table.tabela-atualizacao-relatorio tfoot tr {
+      break-inside: avoid !important; page-break-inside: avoid !important;
+  }
+}
+
+
+/* B96 — GUIA 5: refinamento exclusivo de UX/UI e paginação do relatório.
+   Motores e funções de cálculo preservados. */
+.relatorio-documento .tabela-atualizacao-relatorio-wrap {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
+.relatorio-documento table.tabela-atualizacao-relatorio {
+    min-width: 1060px !important;
+    font-size: 10px !important;
+}
+.relatorio-documento table.tabela-atualizacao-relatorio th {
+    font-size: 9px !important;
+    line-height: 1.15 !important;
+    padding: 6px 4px !important;
+}
+.relatorio-documento table.tabela-atualizacao-relatorio td {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    padding: 6px 4px !important;
+    font-weight: 400 !important;
+}
+.relatorio-documento table.tabela-atualizacao-relatorio td.total {
+    font-weight: 400 !important;
+    color: #002b66 !important;
+}
+.relatorio-documento .tabela-atualizacao-totalizador {
+    display: grid;
+    grid-template-columns: 7% 10% 9% 10% 8% 9% 9% 10% 8% 10% 10%;
+    width: 100%;
+    min-width: 1060px;
+    box-sizing: border-box;
+    background: #eaf4f6;
+    color: #002b66;
+    font-weight: 800;
+    border: 1px solid #002b66;
+    border-top: 1.2px solid #00a8b5;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+}
+.relatorio-documento .tabela-atualizacao-totalizador > div {
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 5px 3px;
+    border-right: 1px solid #cbd5e1;
+    line-height: 1.1;
+}
+.relatorio-documento .tabela-atualizacao-totalizador > div:last-child { border-right: 0; }
+.relatorio-documento .tabela-atualizacao-totalizador .num { text-align: right; }
+.relatorio-documento .tabela-atualizacao-totalizador .total { color:#002b66; font-weight:800; }
+
+@media print {
+    #relatorioImpressaoPortal table.tabela-atualizacao-relatorio {
+        min-width: 0 !important;
+        font-size: 8.1pt !important;
+    }
+    #relatorioImpressaoPortal table.tabela-atualizacao-relatorio td {
+        font-size: 7.9pt !important;
+        font-weight: 400 !important;
+        padding: 1.65mm 1.0mm !important;
+    }
+    #relatorioImpressaoPortal table.tabela-atualizacao-relatorio td.total {
+        font-weight: 400 !important;
+        color:#002b66 !important;
+    }
+    #relatorioImpressaoPortal .tabela-atualizacao-totalizador {
+        min-width: 0 !important;
+        font-size: 7.9pt !important;
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+    }
+    #relatorioImpressaoPortal .tabela-atualizacao-totalizador > div {
+        padding: 1.65mm 1.0mm !important;
+        border-right: .5pt solid #cbd5e1 !important;
+    }
+    #relatorioImpressaoPortal .tabela-atualizacao-relatorio-wrap { overflow: visible !important; }
+}
+
+/* Guia 5 na tela: TOTAL das linhas sem negrito, apenas azul. */
+#corpoDiferencasAtualizacao td:last-child {
+    font-weight: 400 !important;
+    color: #1e40af !important;
 }

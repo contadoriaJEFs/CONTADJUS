@@ -552,6 +552,24 @@
                                 <option value="MC-ACOES-GERAL-2022" class="preset-2022">MC-ACOES-GERAL-2022</option>
                             </optgroup>
                         </select>
+                        <div class="contadjus-indices-ticker" aria-label="Últimos índices e taxas informativos">
+                            <div class="contadjus-indices-ticker-viewport">
+                                <div class="contadjus-indices-ticker-track">
+                                    <span>INPC jul/2026: <strong>-0,01%</strong></span>
+                                    <span>IPCA-E 2º tri/2026: <strong>1,93%</strong></span>
+                                    <span>SELIC: <strong>14,25% a.a.</strong></span>
+                                    <span>Taxa Legal ago/2026: <strong>1,154527% a.m.</strong></span>
+                                    <span>Taxa Legal Previdenciária ago/2026: <strong>1,225220% a.m.</strong></span>
+                                    <span class="contadjus-indices-ticker-source">Fontes: IBGE e Banco Central • apenas informativo</span>
+                                    <span>INPC jul/2026: <strong>-0,01%</strong></span>
+                                    <span>IPCA-E 2º tri/2026: <strong>1,93%</strong></span>
+                                    <span>SELIC: <strong>14,25% a.a.</strong></span>
+                                    <span>Taxa Legal ago/2026: <strong>1,154527% a.m.</strong></span>
+                                    <span>Taxa Legal Previdenciária ago/2026: <strong>1,225220% a.m.</strong></span>
+                                    <span class="contadjus-indices-ticker-source">Fontes: IBGE e Banco Central • apenas informativo</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1092,8 +1110,11 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Calcular até</label>
-                                    <input type="text" id="dataCalculoSucumbencia" placeholder="MM/AAAA ou DD/MM/AAAA" maxlength="10" class="w-full px-2.5 py-2 border border-slate-300 rounded-md text-sm">
+                                    <label id="labelDataCalculoSucumbencia" class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Data da Sentença</label>
+                                    <div class="flex items-center gap-1.5">
+                                        <input type="text" id="dataCalculoSucumbencia" placeholder="MM/AAAA ou DD/MM/AAAA" maxlength="10" inputmode="numeric" autocomplete="off" class="min-w-0 flex-1 w-full px-2.5 py-2 border border-slate-300 rounded-md text-sm">
+                                        <button id="btnVerValoresAteSentenca" type="button" class="hidden shrink-0 px-2.5 py-2 border border-blue-300 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md text-xs font-semibold whitespace-nowrap" title="Ver mês a mês os valores considerados até a Data da Sentença" aria-label="Ver valores considerados até a sentença">🔍</button>
+                                    </div>
                                 </div>
                                 <div>
                                     <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Percentual (%)</label>
@@ -1147,7 +1168,8 @@
                                 <div class="p-2.5 bg-slate-50 rounded border border-slate-200"><div class="text-[11px] text-slate-500">Percentual aplicado</div><strong id="percentualAplicadoSucumbencia" class="font-mono text-sm">10,00%</strong></div>
                                 <div class="p-2.5 bg-blue-50 rounded border border-blue-200"><div class="text-[11px] text-slate-500">Valor da sucumbência</div><strong id="valorSucumbenciaRequisitorio" class="font-mono text-sm text-blue-900">R$ 0,00</strong></div>
                             </div>
-                            <p id="observacaoSucumbencia" class="text-[11px] text-slate-500 mt-2">A base será atualizada automaticamente conforme o critério escolhido.</p>
+                            <div id="dataConsideradaSucumbenciaRequisitorio" class="mt-2 text-[11px] font-semibold text-slate-600">Data considerada: não informada</div>
+                            <p id="observacaoSucumbencia" class="text-[11px] text-slate-500 mt-1">A base será atualizada automaticamente conforme o critério escolhido.</p>
                         </div>
                     </div>
 
@@ -1236,7 +1258,7 @@
                         </label>
                         <label class="relatorio-opcao" data-relatorio-option="atualizacao">
                             <input type="checkbox" id="relatorioSelecionarAtualizacao" value="atualizacao" checked>
-                            <span><strong>5. Atualização</strong><small>Seção preparada para a próxima fase</small></span>
+                            <span><strong>5. Atualização</strong><small>Memória da atualização monetária</small></span>
                         </label>
                         <label class="relatorio-opcao" data-relatorio-option="renuncia">
                             <input type="checkbox" id="relatorioSelecionarRenuncia" value="renuncia" checked>
@@ -1266,6 +1288,63 @@
 
         </main>
         <footer class="contadjus-rodape no-print">Evolução histórica do RGPS desde 07/1994 • Base de índices atualizada até 2026</footer>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MODAL – DETALHAMENTO DA BASE ATÉ A SENTENÇA               -->
+    <!-- ============================================================ -->
+    <div id="modalValoresAteSentenca" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50 modal-overlay" role="dialog" aria-modal="true" aria-labelledby="tituloModalValoresAteSentenca">
+        <div class="bg-white rounded-xl max-w-6xl w-full mx-3 md:mx-5 shadow-xl border border-slate-200 max-h-[90vh] flex flex-col">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 shrink-0">
+                <div>
+                    <h3 id="tituloModalValoresAteSentenca" class="text-base font-bold text-slate-800">Valores considerados até a sentença</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Conferência mês a mês da base utilizada nos honorários sucumbenciais.</p>
+                </div>
+                <button id="btnFecharModalValoresAteSentenca" type="button" class="h-8 w-8 rounded-md text-slate-500 hover:bg-slate-100 hover:text-slate-800 text-lg" aria-label="Fechar">×</button>
+            </div>
+            <div class="px-5 py-3 bg-slate-50 border-b border-slate-200 shrink-0">
+                <div class="flex flex-wrap gap-x-6 gap-y-1 text-sm">
+                    <div><span class="text-slate-500">Data da Sentença:</span> <strong id="modalDataSentencaAteSentenca" class="text-slate-800">--</strong></div>
+                    <div><span class="text-slate-500">Data de Atualização:</span> <strong id="modalDataAtualizacaoAteSentenca" class="text-slate-800">--</strong></div>
+                    <div><span class="text-slate-500">Competências consideradas:</span> <strong id="modalQuantidadeAteSentenca" class="text-slate-800">0</strong></div>
+                </div>
+            </div>
+            <div class="p-4 overflow-auto min-h-0">
+                <div id="modalMensagemAteSentenca" class="hidden mb-3 p-3 rounded-md text-sm"></div>
+                <div class="overflow-x-auto border border-slate-200 rounded-lg">
+                    <table class="w-full text-xs border-collapse">
+                        <thead class="bg-slate-100 text-slate-600 uppercase tracking-wide">
+                            <tr>
+                                <th class="px-3 py-2 text-left border-b border-slate-200 whitespace-nowrap">Competência</th>
+                                <th class="px-3 py-2 text-right border-b border-slate-200 whitespace-nowrap">Valor considerado</th>
+                                <th class="px-3 py-2 text-right border-b border-slate-200 whitespace-nowrap">Pró-rata</th>
+                                <th class="px-3 py-2 text-right border-b border-slate-200 whitespace-nowrap">Coeficiente</th>
+                                <th class="px-3 py-2 text-right border-b border-slate-200 whitespace-nowrap">Corrigido</th>
+                                <th class="px-3 py-2 text-right border-b border-slate-200 whitespace-nowrap">Juros</th>
+                                <th class="px-3 py-2 text-right border-b border-slate-200 whitespace-nowrap">SELIC</th>
+                                <th class="px-3 py-2 text-right border-b border-slate-200 whitespace-nowrap">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaValoresAteSentenca" class="divide-y divide-slate-100"></tbody>
+                        <tfoot class="bg-slate-50 font-semibold text-slate-800">
+                            <tr>
+                                <td class="px-3 py-2 text-left">TOTAL</td>
+                                <td id="totalOriginalAteSentenca" class="px-3 py-2 text-right font-mono">R$ 0,00</td>
+                                <td></td>
+                                <td></td>
+                                <td id="totalCorrigidoAteSentenca" class="px-3 py-2 text-right font-mono">R$ 0,00</td>
+                                <td id="totalJurosAteSentenca" class="px-3 py-2 text-right font-mono">R$ 0,00</td>
+                                <td id="totalSelicAteSentenca" class="px-3 py-2 text-right font-mono">R$ 0,00</td>
+                                <td id="totalGeralAteSentenca" class="px-3 py-2 text-right font-mono">R$ 0,00</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="px-5 py-3 border-t border-slate-200 text-right shrink-0">
+                <button id="btnFecharModalValoresAteSentenca2" type="button" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm font-semibold">Fechar</button>
+            </div>
+        </div>
     </div>
 
     <!-- ============================================================ -->

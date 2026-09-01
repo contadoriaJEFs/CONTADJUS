@@ -2104,7 +2104,7 @@ function renderizarTabelaCorrigida(dados) {
         var tdCoef = document.createElement('td');
         tdCoef.className = 'p-2 text-right font-mono';
         if (item.coeficiente !== undefined && item.coeficiente !== null) {
-            tdCoef.textContent = item.coeficiente.toFixed(10);
+            tdCoef.textContent = item.coeficiente.toFixed(8);
         } else {
             tdCoef.textContent = '-';
         }
@@ -2112,7 +2112,7 @@ function renderizarTabelaCorrigida(dados) {
 
         // Valor Corrigido
         var tdCorr = document.createElement('td');
-        tdCorr.className = 'p-2 text-right font-mono font-semibold';
+        tdCorr.className = 'p-2 text-right font-mono';
         if (item.valorCorrigido !== undefined && item.valorCorrigido !== null) {
             tdCorr.textContent = formatarMoedaAtualizacao(item.valorCorrigido);
             if (item.valorCorrigido < 0) tdCorr.style.color = '#dc2626';
@@ -2171,7 +2171,7 @@ function renderizarTabelaCorrigida(dados) {
 
         // Juros de Mora (R$)
         var tdJurosValor = document.createElement('td');
-        tdJurosValor.className = 'p-2 text-right font-mono font-semibold';
+        tdJurosValor.className = 'p-2 text-right font-mono';
         if (item.valorJuros !== undefined && item.valorJuros !== null) {
             tdJurosValor.textContent = formatarMoedaAtualizacao(item.valorJuros);
             if (item.valorJuros < 0) tdJurosValor.style.color = '#dc2626';
@@ -2191,7 +2191,7 @@ function renderizarTabelaCorrigida(dados) {
 
         // SELIC (R$)
         var tdSelicValor = document.createElement('td');
-        tdSelicValor.className = 'p-2 text-right font-mono font-semibold';
+        tdSelicValor.className = 'p-2 text-right font-mono';
         if (item.valorSelic !== undefined && item.valorSelic !== null) {
             tdSelicValor.textContent = formatarMoedaAtualizacao(item.valorSelic);
             if (item.valorSelic < 0) tdSelicValor.style.color = '#dc2626';
@@ -2205,7 +2205,7 @@ function renderizarTabelaCorrigida(dados) {
 
         // TOTAL (Corrigido + Juros + SELIC)
         var tdTotal = document.createElement('td');
-        tdTotal.className = 'p-2 text-right font-mono font-bold text-blue-800';
+        tdTotal.className = 'p-2 text-right font-mono text-blue-800';
         var total = (item.valorCorrigido || 0) + (item.valorJuros || 0) + (item.valorSelic || 0);
         tdTotal.textContent = formatarMoedaAtualizacao(total);
         if (total < 0) tdTotal.style.color = '#dc2626';

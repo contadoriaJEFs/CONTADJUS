@@ -630,6 +630,149 @@ function gerarSecaoDiferencasRelatorioProfissional(continuaEmNovaPagina = false)
     </section>`;
 }
 
+
+function gerarTabelaAtualizacaoRelatorioProfissional() {
+    const dados = Array.isArray(window.resultadosAtualizacao?.itens)
+        ? window.resultadosAtualizacao.itens.slice()
+        : [];
+
+    if (!dados.length) {
+        return '<p class="nota-relatorio">Não há memória de atualização disponível. Calcule a Guia 5 antes de gerar este relatório.</p>';
+    }
+
+    const numeroCompetencia = (comp) => {
+        const texto = String(comp || '');
+        const partes = texto.split('/');
+        if (texto.indexOf('13º') === 0) return (Number(partes[1]) || 0) * 100 + 13;
+        return (Number(partes[1]) || 0) * 100 + (Number(partes[0]) || 0);
+    };
+
+    dados.sort((a, b) => numeroCompetencia(a.competencia) - numeroCompetencia(b.competencia));
+
+    let totalOriginal = 0;
+    let totalCorrigido = 0;
+    let totalJuros = 0;
+    let totalSelic = 0;
+
+    const linhas = dados.map(item => {
+        const original = Number(item.diferenca) || 0;
+        const corrigido = Number(item.valorCorrigido) || 0;
+        const juros = Number(item.valorJuros) || 0;
+        const selic = Number(item.valorSelic) || 0;
+        const total = corrigido + juros + selic;
+        totalOriginal += original;
+        totalCorrigido += corrigido;
+        totalJuros += juros;
+        totalSelic += selic;
+
+        // Mantém a mesma apuração de Taxa Legal exibida na Guia 5.
+        let taxaLegalAcumulado = 0;
+        if (Array.isArray(item.detalhamentoJuros)) {
+            const compAtualNum = numeroCompetencia(item.competencia);
+            const dataAtualizacaoISO = window.resultadosAtualizacao?.dataAtualizacaoISO || null;
+            item.detalhamentoJuros.forEach(entry => {
+                if (dataAtualizacaoISO && entry.competenciaISO === dataAtualizacaoISO) return;
+                const entryNum = entry.competenciaISO ? numeroCompetencia(String(entry.competenciaISO).slice(5, 7) + '/' + String(entry.competenciaISO).slice(0, 4)) : 0;
+                if ((entry.indice === 'TAXA_LEGAL' || entry.indice === 'TAXA_LEGAL_PREVIDENCIARIA') && entryNum >= compAtualNum) {
+                    taxaLegalAcumulado += Number(entry.taxaPercentual) || 0;
+                }
+            });
+        }
+
+        return `<tr>
+            <td>${relatorioEscaparHtml(item.competencia || '-')}</td>
+            <td class="num">R$ ${relatorioValorMoeda(original)}</td>
+            <td class="num">${item.coeficiente == null ? '-' : Number(item.coeficiente).toFixed(8)}</td>
+            <td class="num">R$ ${relatorioValorMoeda(corrigido)}</td>
+            <td class="num">${formatarPercentualRelatorio(item.percentualJurosAntesSelic)}</td>
+            <td class="num">${taxaLegalAcumulado ? formatarPercentualRelatorio(taxaLegalAcumulado) : '-'}</td>
+            <td class="num">${formatarPercentualRelatorio(item.percentualJurosTotal)}</td>
+            <td class="num">R$ ${relatorioValorMoeda(juros)}</td>
+            <td class="num">${formatarPercentualRelatorio(item.percentualSelic)}</td>
+            <td class="num">R$ ${relatorioValorMoeda(selic)}</td>
+            <td class="num total">R$ ${relatorioValorMoeda(total)}</td>
+        </tr>`;
+    }).join('');
+
+    const totalGeral = totalCorrigido + totalJuros + totalSelic;
+    return `<div class="tabela-atualizacao-relatorio-wrap">
+        <table class="tabela-atualizacao-relatorio">
+            <thead><tr>
+                <th>Comp.</th>
+                <th class="num">Dif. original</th>
+                <th class="num">Coef.</th>
+                <th class="num">Vlr. corrigido</th>
+                <th class="num">% juros</th>
+                <th class="num">Taxa Legal</th>
+                <th class="num">% juros total</th>
+                <th class="num">Juros de mora</th>
+                <th class="num">% SELIC</th>
+                <th class="num">SELIC</th>
+                <th class="num">TOTAL</th>
+            </tr></thead>
+            <tbody>${linhas}</tbody>
+        </table>
+        <div class="tabela-atualizacao-totalizador" role="row">
+            <div>TOTAIS</div>
+            <div class="num">R$ ${relatorioValorMoeda(totalOriginal)}</div>
+            <div></div>
+            <div class="num">R$ ${relatorioValorMoeda(totalCorrigido)}</div>
+            <div></div><div></div><div></div>
+            <div class="num">R$ ${relatorioValorMoeda(totalJuros)}</div>
+            <div></div>
+            <div class="num">R$ ${relatorioValorMoeda(totalSelic)}</div>
+            <div class="num total">R$ ${relatorioValorMoeda(totalGeral)}</div>
+        </div>
+    </div>`;
+}
+
+function formatarPercentualRelatorio(valor) {
+    const n = Number(valor);
+    if (!Number.isFinite(n)) return '-';
+    return n.toLocaleString('pt-BR', { minimumFractionDigits: 4, maximumFractionDigits: 4 }) + '%';
+}
+
+function gerarSecaoAtualizacaoRelatorioProfissional(continuaEmNovaPagina = false) {
+    const g5 = window.resultadosAtualizacao;
+    if (!g5 || !Array.isArray(g5.itens) || !g5.itens.length) {
+        return `<section class="secao-relatorio secao-atualizacao-relatorio ${continuaEmNovaPagina ? 'continua-em-pagina' : ''}">
+            <h2>Resultado da Atualização</h2>
+            <p class="nota-relatorio">Não há memória de atualização disponível. Calcule a Guia 5 antes de gerar este relatório.</p>
+        </section>`;
+    }
+
+    const dataAtualizacao = g5.dataAtualizacao || relatorioCampo('dataAtualizacao', '-');
+    const parametrosCorrecao = g5.parametrosCorrecao?.nome || g5.parametrosCorrecao?.descricao || g5.parametrosCorrecao?.codigo || '-';
+    const parametrosJuros = g5.parametrosJuros?.nome || g5.parametrosJuros?.descricao || g5.parametrosJuros?.codigo || '-';
+    const qtd = g5.itens.length;
+    const totalCorrigido = Number(g5.totalCorrigido) || 0;
+    const totalJuros = Number(g5.totalJuros) || 0;
+    const totalSelic = Number(g5.totalSelic) || 0;
+    const totalGeral = totalCorrigido + totalJuros + totalSelic;
+
+    return `<section class="secao-relatorio secao-atualizacao-relatorio ${continuaEmNovaPagina ? 'continua-em-pagina' : ''}">
+        <h2>Resultado da Atualização</h2>
+
+        <div class="quadro-resumo quadro-resumo-atualizacao">
+            <div class="item"><span class="rotulo">Data de atualização</span><span class="valor">${relatorioEscaparHtml(dataAtualizacao)}</span></div>
+            <div class="item"><span class="rotulo">Competências</span><span class="valor">${qtd}</span></div>
+            <div class="item"><span class="rotulo">Correção monetária</span><span class="valor valor-menor">${relatorioEscaparHtml(parametrosCorrecao)}</span></div>
+            <div class="item"><span class="rotulo">Juros</span><span class="valor valor-menor">${relatorioEscaparHtml(parametrosJuros)}</span></div>
+        </div>
+
+        <div class="quadro-totais-atualizacao">
+            <div class="total"><span>Total corrigido</span><strong>R$ ${relatorioValorMoeda(totalCorrigido)}</strong></div>
+            <div class="total"><span>Juros de mora</span><strong>R$ ${relatorioValorMoeda(totalJuros)}</strong></div>
+            <div class="total"><span>SELIC</span><strong>R$ ${relatorioValorMoeda(totalSelic)}</strong></div>
+            <div class="total principal"><span>Total geral atualizado</span><strong>R$ ${relatorioValorMoeda(totalGeral)}</strong></div>
+        </div>
+
+        <h3 class="memoria-titulo-relatorio">MEMÓRIA DA ATUALIZAÇÃO</h3>
+        ${gerarTabelaAtualizacaoRelatorioProfissional()}
+        <p class="nota-relatorio">Memória da atualização reproduzida a partir dos resultados consolidados da Guia 5. O relatório apresenta os resultados já calculados pelo sistema e não reexecuta o motor de atualização.</p>
+    </section>`;
+}
+
 function gerarRelatorioFinal() {
     atualizarNavegacaoPorTipoAcao();
     const selecoes = obterSelecaoRelatorios();
@@ -645,12 +788,14 @@ function gerarRelatorioFinal() {
     const temEvolucao = selecoes.includes('evolucao-devida');
     const temBeneficios = selecoes.includes('beneficios-recebidos');
     const temDiferencas = selecoes.includes('diferencas');
+    const temAtualizacao = selecoes.includes('atualizacao');
 
     if (temEvolucao) html += gerarSecaoEvolucaoRelatorioProfissional();
     if (temBeneficios) html += gerarSecaoBeneficiosRecebidosRelatorioProfissional(temEvolucao);
     if (temDiferencas) html += gerarSecaoDiferencasRelatorioProfissional(temEvolucao || temBeneficios);
+    if (temAtualizacao) html += gerarSecaoAtualizacaoRelatorioProfissional(temEvolucao || temBeneficios || temDiferencas);
 
-    const naoImplementadas = selecoes.filter(x => !['evolucao-devida', 'beneficios-recebidos', 'diferencas'].includes(x));
+    const naoImplementadas = selecoes.filter(x => !['evolucao-devida', 'beneficios-recebidos', 'diferencas', 'atualizacao'].includes(x));
     if (naoImplementadas.length) {
         // Aviso apenas na interface. Não entra no documento impresso.
         html += `<div class="no-print relatorio-aviso"><strong>Fase 1:</strong> as seções selecionadas das Guias 5 a 8 ainda serão incorporadas às próximas fases.</div>`;
